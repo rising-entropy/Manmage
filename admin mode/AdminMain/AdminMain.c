@@ -3,6 +3,7 @@
 #include<math.h>
 #include<stdlib.h>
 #include<string.h>
+int stud_enter();
 int admin()
 {
     //clrscr();
@@ -19,9 +20,10 @@ int admin()
     {
     	int opt;
         printf("Invalid Password.\n\n");
-        printf("What you wanna Do:\n");
+        printf("What you want to Do:\n");
         printf("\t1. Try Again.\n");
         printf("\t2. Go Back.\n\n\t");
+        printf("Your Choice: ");
         scanf("%d", &opt);
         switch(opt){
         	case(1):
@@ -40,19 +42,20 @@ int admin()
 }
 int adminwin1()
 {
-    printf("=========================================================");
+    printf("\n\n\n=========================================================");
     printf("\nWelcome to Admin Mode.\n");
     printf("=========================================================");
-    printf("\nPress Any Key to Continue...\n");
+    printf("\nPress Any Key to Continue...\n\n\n");
     getch();
     adminwin2();
 }
 int adminwin2()
 {
+	//getch();
 	int opt;
 	printf("What you wanna Do:\n");
         printf("\t1. Change Password.\n");
-        printf("\t2. Create the database.\n");
+        printf("\t2. Create new database.\n");
         printf("\t3. Go Back.\n\n\t");
         scanf("%d", &opt);
         switch(opt){
@@ -99,7 +102,86 @@ int adminpasschange()
 }
 int create_db()
 {
-	exit(1);
+	char c;
+	printf("\nAre you Sure?\nPress 'Y' to proceed else Go Back\n");
+	//scanf("%c", &c);
+	//if(c == 'Y')
+	real_create_db();
+	//else
+	//adminwin1();
+	//exit(1);
+	//return 0;
+}
+int real_create_db()
+{
+	int stud, tea;
+	printf("\nEnter Number of Students: ");
+	scanf("%d", &stud);
+	printf("\nEnter Number of Subjects: ");
+	scanf("%d", &tea);
+	FILE *filePointer ; 
+	filePointer= fopen("studnum.txt", "w");
+	fprintf (filePointer, "%d",stud);
+	fclose(filePointer);
+	filePointer= fopen("teanum.txt", "w");
+	fprintf (filePointer, "%d",tea);
+	fclose(filePointer);
+	stud_enter();
+}
+int stud_enter()
+{
+	int num;
+	struct Student
+	{
+		int prn;
+		char stu_name[20];	
+	};
+	int i;
+	FILE *filePointer ; 
+	filePointer= fopen("studnum.txt", "r");
+	fscanf(filePointer, "%d",num);
+	fclose(filePointer);
+	filePointer= fopen("studdata.txt", "w");
+	struct Student s[num];
+	for(i=0; i<num; i++)
+	{
+		int prn;
+		char stu_name[20];
+		printf("\nEnter PRN of %d student: ", i+1);
+		scanf("%d", &prn);
+		printf("\nEnter Name of %d student: ", i+1);
+		scanf("%s", &stu_name);
+		fprintf(filePointer, "%d %s\n", prn, stu_name);
+	}
+	fclose(filePointer);
+	tea_enter();
+}
+int tea_enter()
+{
+	int num;
+	struct Teacher
+	{
+		char subject[20];
+		char tea_name[20];	
+	};
+	int i;
+	FILE *filePointer ; 
+	filePointer= fopen("teanum.txt", "r");
+	fscanf(filePointer, "%d",num);
+	fclose(filePointer);
+	filePointer= fopen("teadata.txt", "w");
+	struct Teacher t[num];
+	for(i=0; i<num; i++)
+	{
+		char subject[20];
+		char tea_name[20];
+		printf("\nEnter Name of %d Subject: ", i+1);
+		scanf("%s", &subject);
+		printf("\nEnter Name of %d Subject Teacher: ", i+1);
+		scanf("%s", &tea_name);
+		fprintf(filePointer, "%s %s\n", subject, tea_name);
+	}
+	fclose(filePointer);
 }
 int main()
 {
