@@ -116,7 +116,7 @@ void update_attandance(int number_of_students)
     printf("\n\tTotal present : %d\n\tTotal absent : %d\n\tTotal : %d",present,absent,present+absent);
     rewind(f_rollno_sheet);
     i=0;
-    printf("\nEnter roll number one by one.To complete enter 0 as roll number");
+    printf("\nEnter roll number one by one.\nTo complete updates enter : 0");
     while(1)
     {
         printf("\nEnter Roll No. to change status:");
@@ -148,12 +148,28 @@ void update_attandance(int number_of_students)
         }
         if(tmp_roll == 0)
         {
-            fprintf(f_attendance_sheet,"%d %s\n",yyyymmdd,attendance_string);
-            printf("\nAttendance successfully updated");
-            getch();
-            fclose(f_rollno_sheet);
-            fclose(f_attendance_sheet);
-            break;
+            printf("\nSave attendance?\n\tFor YES press 'Y' \n\tFor NO press 'N'");
+            again_check:
+            ch=getch();
+            if(ch == 13)
+                goto again_check;
+            else if(ch =='N'|| ch =='n')
+            {
+                fclose(f_rollno_sheet);
+                fclose(f_attendance_sheet);
+                exit(1);// change to back page
+            }
+            else if( ch == 'Y' || ch == 'y')
+            {
+                fprintf(f_attendance_sheet,"%d %s\n",yyyymmdd,attendance_string);
+                printf("\nAttendance successfully updated");
+                getch();
+                fclose(f_rollno_sheet);
+                fclose(f_attendance_sheet);
+                break;
+            }
+            else
+                goto again_check;
         }
         cnt=1;
         while(fscanf(f_rollno_sheet,"%d %s %s %s",&scaned_rollno,middle_name,first_name,last_name) != EOF)
