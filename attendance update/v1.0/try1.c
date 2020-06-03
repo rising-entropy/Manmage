@@ -15,9 +15,9 @@ int main()
 }
 void update_attandance(int number_of_students)
 {
-    int i, j, k;
+    int i, j, k,present,absent;
     int check;
-    int dd = 0, mm = 0, yyyy = 0,yyyymmdd=0;//input date
+    int dd = 0, mm = 0, yyyy = 0, yyyymmdd=0;//input date
     char ch;//tmp char
     FILE *f_attendance_sheet,*f_rollno_sheet ;
 
@@ -57,21 +57,18 @@ void update_attandance(int number_of_students)
     check=is_already_exist(yyyymmdd);
     if(check == 1)
     {
-        printf("\nInputed date already exits\nPress 'Y' if you want to continue or Press any other key to go back");
-        againgetch:
+        printf("\nInputed date already exits\nPress 'Y' to again enter date.To go back press any other key");
+        again_try:
         ch=getch();
-        if(ch== 13)
-            goto againgetch;
-        if(ch == 'y' || ch == 'Y'  && ch != 13)
+        if(ch == 13)
+            goto again_try;
+        else if(ch =='y' || ch =='Y')
         {
             system("cls");
-            printf("Attendance Update:-");
-            printf("\nDate : %d / %d / %d \n\n",dd, mm, yyyy);
-            f_attendance_sheet=fopen("Attendance Sheet.txt","a+");
+            goto date_enter;
         }
-        else if(ch != 13)
-            exit(0);
-
+        else
+            exit(0);//change to back page later
     }
     else if(check == 0)
         f_attendance_sheet=fopen("Attendance Sheet.txt","a+");
@@ -87,12 +84,42 @@ void update_attandance(int number_of_students)
     for(cnt=0;cnt<number_of_students;cnt++)
         attendance_string[cnt]='1';
     attendance_string[cnt]='\0';
+
+    attendance_status_page:
     cnt=0;
     i=0;
-    printf("Enter roll number one by one.To complete enter 0 as roll number");
+    present=0;
+    absent=0;
+    printf("Attendance Status:\n");
+    printf("========================================================================================================================\n\t");
+    for(i=0,j=0;i<number_of_students;i++,j++)
+    {
+        ch='A';
+        fscanf(f_rollno_sheet,"%d %s %s %s",&scaned_rollno,middle_name,first_name,last_name);
+        if(attendance_string[i]=='1')
+        {
+            ch='P';
+            present++;
+        }
+        else
+        {
+            absent++;
+        }
+        printf("%d - %c\t",scaned_rollno,ch);
+        if( j == 10)
+        {
+            printf("\n\t");
+            j=0;
+        }
+    }
+    printf("\n========================================================================================================================\n");
+    printf("\n\tTotal present : %d\n\tTotal absent : %d\n\tTotal : %d",present,absent,present+absent);
+    rewind(f_rollno_sheet);
+    i=0;
+    printf("\nEnter roll number one by one.To complete enter 0 as roll number");
     while(1)
     {
-        printf("\nEnter Absent Roll No.:");
+        printf("\nEnter Roll No. to change status:");
         i=0;
         tmp_roll=0;
         while(1)
@@ -123,6 +150,7 @@ void update_attandance(int number_of_students)
         {
             fprintf(f_attendance_sheet,"%d %s\n",yyyymmdd,attendance_string);
             printf("\nAttendance successfully updated");
+            getch();
             fclose(f_rollno_sheet);
             fclose(f_attendance_sheet);
             break;
@@ -133,18 +161,31 @@ void update_attandance(int number_of_students)
 
             if(tmp_roll == scaned_rollno)
             {
-                attendance_string[cnt-1]='0';
-                printf("\nAttendance updated");
+                if(attendance_string[cnt-1]== '1')
+                {
+                    attendance_string[cnt-1]='0';
+                    printf("\nAttendance updated for roll no. %d : Absent",tmp_roll);
+                }
+                else
+                {
+                    attendance_string[cnt-1]='1';
+                    printf("\nAttendance updated for roll no. %d : Present",tmp_roll);
+                }
+                getch();
                 break;
             }
             cnt++;
-
         }
         rewind(f_rollno_sheet);
         if(cnt>number_of_students)
         {
             printf("\nInvalide roll number");
+            getch();
         }
+        system("cls");
+        printf("Attendance Update:-");
+        printf("\nDate : %d / %d / %d \n\n",dd, mm, yyyy);
+        goto attendance_status_page;
     }
     getch();
     free(attendance_string);
