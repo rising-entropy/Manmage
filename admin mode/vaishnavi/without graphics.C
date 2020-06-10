@@ -1,19 +1,21 @@
 #include<stdio.h>
 #include<conio.h>
+#include<stdlib.h>
+#include<time.h>
+
 #include<dos.h>
-void main()
-{	clrscr();
-	textcolor(LIGHTGREEN);
-	cprintf("\n--------------------------------------------------------------------------------");
-	cprintf("\n\n\nWELCOME TO...\n");
-	cprintf("\n\n\nATTENDENCE MANAGER");
-	cprintf("\n\n\n\n\n\n\n PROJECT BY:ONKAR GAVALI.");
-	cprintf("\n\b\b\b\b\b\b\b\b\b\b\b\b\bDEVANG KAMBLE.");
-	cprintf("\n\b\b\b\b\b\b\b\b\b\b\b\b\b\bVAISHNAVI BELGAMWAR.                                                 ");
-	cprintf("\nMENTORS:NISHI BHATE.                                                                     ");
-	cprintf("\bABHISHEK MORE.                          ");
-	cprintf("--------------------------------------------------------------------------------");
-	delay(100);
+int main()
+{	system("cls");
+	system("color a");
+	printf("\n\t----------------------------------------------------------------------------------------------------------------");
+	printf("\n\n\n\tWELCOME TO...\n");
+	printf("\n\n\n\tATTENDENCE MANAGER");
+	printf("\n\n\n\n\n\n\n \tPROJECT BY:ONKAR GAVALI.");
+	printf("\n\b\b\b\b\b\b\b\b\b\b\b\b\b\tDEVANG KAMBLE.");
+	printf("\n\b\b\b\b\b\b\b\b\b\b\b\b\b\b\tVAISHNAVI BELGAMWAR.                                                 ");
+	printf("\n\tMENTORS:NISHI BHATE.                                                                     ");
+	printf("\b\n\tABHISHEK MORE.                          \n");
+	printf("\t----------------------------------------------------------------------------------------------------------------");
 	getch();
-	return;
+	return 0;
 }
