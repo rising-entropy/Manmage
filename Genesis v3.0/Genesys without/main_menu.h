@@ -6,6 +6,7 @@
 #include"Teacher.h"
 #include"Student.h"
 void display_main_line();
+void cgpa();
 void main_menu()
 {
     system("cls");

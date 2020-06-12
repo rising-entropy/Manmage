@@ -184,13 +184,13 @@ void teacherlogined(char* subject,char* firstname,char* middlename,char* lastnam
         		teacherpasswordchange(subject,firstname,middlename,lastname,path,actual_pass);
         		break;
             case(2):
-        		update_attendance(path);
+        		update_attendance(subject,firstname,middlename,lastname,path,actual_pass);
         		break;
             case 3:
                 showattendance(subject,firstname,middlename,lastname,path,actual_pass);
                 break;
             case 4:
-                list_student();
+                list_student_t(subject,firstname,middlename,lastname,path,actual_pass);
                 break;
         	case(5):
         		main_menu();
@@ -366,12 +366,12 @@ void showattendance(char* subject,char* firstname,char* middlename,char* lastnam
 
         system("cls");
         again_to_search_PRN:
-        display_teacher_line();
-        printf("\n\t|| SEARCH BY PRN ||\n");
         i=0;
         int prn=0,scaned_PRN=0,cnt=1,check=0;
         char first_name[20],middle_name[20],last_name[20],student_pass[25];
         system("cls");
+        display_teacher_line();
+        printf("\n\t|| SEARCH BY PRN ||\n");
         printf("\n\tEnter PRN : ");
         while(1)
         {
@@ -398,7 +398,7 @@ void showattendance(char* subject,char* firstname,char* middlename,char* lastnam
         FILE *fp1,*fp2;                           ///1st for student data and 2nd for attendance sheet and for scanf number of students
         cnt=1;                                    ///initialize to 1st position
         fp1=fopen("Admin/studdata.txt","r");
-        while(fscanf(fp1,"%d %s %s %s %s",&scaned_PRN,first_name,middle_name,last_name,student_pass))
+        while(fscanf(fp1,"%d %s %s %s %s",&scaned_PRN,first_name,middle_name,last_name,student_pass) != EOF)
         {
             if(prn==scaned_PRN)
             {
@@ -629,8 +629,7 @@ void list_student_t(char* subject,char* firstname,char* middlename,char* lastnam
         printf("File is Empty.\nCreate New Database.");
         printf("\nPress Any Key to Continue...\n");
         getch();
-        exit(3);
-        //main_menu();
+        main_menu();
     }
     printf("\n\t|| LIST OF STUDENTS ||\n");
     printf("\n\t%10s || %-10s || %-75s ||\n","Sr. No.","PRN","Student Information");
