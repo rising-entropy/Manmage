@@ -1,0 +1,5 @@
+AppliedMath Neil Nitin Mukesh Admin/AppliedMath/ Nitin
+DiscMath Ananya Chunky Pandey Admin/DiscMath/ Chunky
+DataStruct Babu Ganpat Apte Admin/DataStruct/ Ganpat
+DataComm Natasha Hardik Pandya Admin/DataComm/ Hardik
+CompOrg Aishwarya Abhishek Rai Admin/CompOrg/ Abhishek
