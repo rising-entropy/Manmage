@@ -366,12 +366,12 @@ void showattendance(char* subject,char* firstname,char* middlename,char* lastnam
 
         system("cls");
         again_to_search_PRN:
-        display_teacher_line();
-        printf("\n\t|| SEARCH BY PRN ||\n");
         i=0;
         int prn=0,scaned_PRN=0,cnt=1,check=0;
         char first_name[20],middle_name[20],last_name[20],student_pass[25];
         system("cls");
+        display_teacher_line();
+        printf("\n\t|| SEARCH BY PRN ||\n");
         printf("\n\tEnter PRN : ");
         while(1)
         {
@@ -398,7 +398,7 @@ void showattendance(char* subject,char* firstname,char* middlename,char* lastnam
         FILE *fp1,*fp2;                           ///1st for student data and 2nd for attendance sheet and for scanf number of students
         cnt=1;                                    ///initialize to 1st position
         fp1=fopen("Admin/studdata.txt","r");
-        while(fscanf(fp1,"%d %s %s %s %s",&scaned_PRN,first_name,middle_name,last_name,student_pass))
+        while(fscanf(fp1,"%d %s %s %s %s",&scaned_PRN,first_name,middle_name,last_name,student_pass) != EOF)
         {
             if(prn==scaned_PRN)
             {
