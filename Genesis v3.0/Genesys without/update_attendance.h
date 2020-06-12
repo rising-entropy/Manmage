@@ -6,7 +6,7 @@
 #include<conio.h>
 #include<string.h>
 
-void update_attendance(char *path)
+void update_attendance(char *sub,char* first,char *middle,char *last,char *path,char * pass_word)
 {
     system("cls");
     int i, j, k,present,absent;
@@ -79,7 +79,7 @@ void update_attendance(char *path)
             goto date_enter;
         }
         else
-            exit(0);//change to back page later
+            teacherlogined(sub,first,middle,last,path,pass_word);
     }
     else if(check == 0)
     {
@@ -179,7 +179,7 @@ void update_attendance(char *path)
                     if(!strcmp(fpath,path))
                     {
                         fclose(fp);
-                        teacherlogined(subject,firstname,middlename,lastname,path,actual_pass);
+                        teacherlogined(sub,first,middle,last,path,pass_word);
                         return;
                     }
                 }// go to teacherlogined in teacher.c
@@ -188,7 +188,6 @@ void update_attendance(char *path)
             {
                 fprintf(f_attendance_sheet,"%d %s\n",yyyymmdd,attendance_string);
                 ///
-                //sort_date(yyyymmdd,attendance_string,path,number_of_students);
                 printf("\nAttendance Updated Successfully!");
                 printf("\nPress Any Key to Continue...\n");
                 getch();
@@ -202,7 +201,7 @@ void update_attendance(char *path)
                     if(!strcmp(fpath,path))
                     {
                         fclose(fp);
-                        teacherlogined(subject,firstname,middlename,lastname,path,actual_pass);// go to teacherlogined in teacher.c
+                        teacherlogined(sub,first,middle,last,path,pass_word);// go to teacherlogined in teacher.c
                         return;
                     }
                 }
@@ -434,35 +433,6 @@ int is_already_exist(int yyyymmdd,char *filepath)
     fclose(f_attendance_sheet);
     return 0;//date not found
 }
-
-/*void sort_date(int yyyymmdd,char* attendance_string,char *path,int number_of_students)
-{
-    FILE *fp1,*fp2;//one for original and 2nd for tmp file
-    char file1[50],file2[50],*attendance=malloc(sizeof(char)*(number_of_students+1));
-    int date,flag=0;//flag for to update in tmp file check purpose
-    strcpy(file1,path);
-    strcpy(file2,path);
-    strcat(file1,"Attendance Sheet.txt");
-    strcat(file2,"Attendance Sheet_tmp.txt");
-    fp1=fopen(file1,"r");
-    fp2=fopen(file2,"w");
-    while(fscanf( fp1,"%d %s",&date,attendance) != EOF)
-    {
-        if(date>yyyymmdd && flag==0)
-        {
-            fprintf(fp2,"%d %s\n",yyyymmdd,attendance_string);
-            flag=1;
-        }
-        fprintf(fp2,"%d %s\n",date,attendance);
-    }
-    fclose(fp1);
-    fclose(fp2);
-    free(attendance);
-    if(remove(file1))
-        printf("error1\n");
-    rename(file2,file1);
-    return ;
-}*/
 
 
 

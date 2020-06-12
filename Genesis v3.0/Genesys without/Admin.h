@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include"main_menu.h"
 
 void teacher_data_enter();
 void adminwin1();

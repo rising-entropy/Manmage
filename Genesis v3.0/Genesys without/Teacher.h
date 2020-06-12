@@ -184,13 +184,13 @@ void teacherlogined(char* subject,char* firstname,char* middlename,char* lastnam
         		teacherpasswordchange(subject,firstname,middlename,lastname,path,actual_pass);
         		break;
             case(2):
-        		update_attendance(path);
+        		update_attendance(subject,firstname,middlename,lastname,path,actual_pass);
         		break;
             case 3:
                 showattendance(subject,firstname,middlename,lastname,path,actual_pass);
                 break;
             case 4:
-                list_student();
+                list_student_t(subject,firstname,middlename,lastname,path,actual_pass);
                 break;
         	case(5):
         		main_menu();
@@ -629,8 +629,7 @@ void list_student_t(char* subject,char* firstname,char* middlename,char* lastnam
         printf("File is Empty.\nCreate New Database.");
         printf("\nPress Any Key to Continue...\n");
         getch();
-        exit(3);
-        //main_menu();
+        main_menu();
     }
     printf("\n\t|| LIST OF STUDENTS ||\n");
     printf("\n\t%10s || %-10s || %-75s ||\n","Sr. No.","PRN","Student Information");
